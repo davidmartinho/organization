@@ -5,15 +5,17 @@
 <%@ taglib uri="http://fenix-ashes.ist.utl.pt/fenix-renderers" prefix="fr" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://fenix-ashes.ist.utl.pt/chart" prefix="chart" %>
-<%@page import="pt.ist.bennu.core.presentationTier.component.OrganizationChart"%>
+<%@page import="org.fenixedu.bennu.core.presentationTier.component.OrganizationChart"%>
 <%@page import="module.organization.domain.Unit"%>
+
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/organization/CSS/organization.css" media="screen"/>
 
 <h2>
 	<bean:message key="label.model" bundle="ORGANIZATION_RESOURCES"/>:
-	<bean:write name="organizationalModel" property="name"/>
+	<bean:write name="organizationalModel" property="name.content"/>
 </h2>
 
-<logic:present role="pt.ist.bennu.core.domain.RoleType.MANAGER">
+<logic:present role="#managers">
 	<p class="mvert05">
 		<html:link action="/organizationModel.do?method=editModel" paramId="organizationalModelOid" paramName="organizationalModel" paramProperty="externalId">
 			<bean:message key="label.model.edit" bundle="ORGANIZATION_RESOURCES"/>
@@ -62,7 +64,7 @@
 					<div class="orgTBox orgTBoxLight">
 						<bean:define id="url">/organizationModel.do?method=viewModel&amp;partyOid=<bean:write name="party" property="externalId"/>&amp;viewName=<%= module.organization.presentationTier.actions.OrganizationModelAction.UNIT_CHART_VIEW_NAME %></bean:define>
 						<html:link action="<%= url %>" paramId="organizationalModelOid" paramName="organizationalModel" paramProperty="externalId">
-							<bean:write name="party" property="partyName"/>
+							<bean:write name="party" property="partyName.content"/>
 						</html:link>
 					</div>
 				</chart:orgChart>
